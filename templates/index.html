@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>StudyPlanner - Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="auth-body">
+
+<div class="auth-container">
+
+    <div class="auth-brand">
+        <div class="brand-logo">SP</div>
+
+        <div>
+            <h1>StudyPlanner</h1>
+            <p>Plan smarter. Study better.</p>
+        </div>
+    </div>
+
+
+    <!-- LOGIN -->
+
+    <div class="auth-card" id="loginCard">
+
+        <div class="auth-header">
+            <h2>Welcome Back</h2>
+            <p>Sign in to continue your study journey.</p>
+        </div>
+
+        <form id="loginForm">
+
+            <div class="form-group">
+                <label for="loginEmail">Email</label>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter your password"
+                    autocomplete="current-password"
+                    required
+                >
+            </div>
+
+
+            <button type="submit" class="primary-btn">
+                Sign In
+            </button>
+
+        </form>
+
+
+        <div class="auth-switch">
+            Don't have an account?
+            <button type="button" onclick="showSignup()">
+                Create account
+            </button>
+        </div>
+
+    </div>
+
+
+    <!-- SIGNUP -->
+
+    <div class="auth-card hidden" id="signupCard">
+
+        <div class="auth-header">
+            <h2>Create Account</h2>
+            <p>Start organizing your studies today.</p>
+        </div>
+
+
+        <form id="signupForm">
+
+            <div class="form-group">
+                <label for="signupName">Full Name</label>
+
+                <input
+                    type="text"
+                    id="signupName"
+                    placeholder="Enter your name"
+                    autocomplete="name"
+                    required
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="signupEmail">Email</label>
+
+                <input
+                    type="email"
+                    id="signupEmail"
+                    placeholder="Enter your email"
+                    autocomplete="email"
+                    required
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="signupPassword">Password</label>
+
+                <input
+                    type="password"
+                    id="signupPassword"
+                    placeholder="Minimum 6 characters"
+                    autocomplete="new-password"
+                    minlength="6"
+                    required
+                >
+            </div>
+
+
+            <button type="submit" class="primary-btn">
+                Create Account
+            </button>
+
+        </form>
+
+
+        <div class="auth-switch">
+            Already have an account?
+
+            <button type="button" onclick="showLogin()">
+                Sign in
+            </button>
+        </div>
+
+    </div>
+
+
+    <div id="authMessage" class="auth-message"></div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>

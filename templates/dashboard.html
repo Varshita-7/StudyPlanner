@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>StudyPlanner</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body class="app-body">
+
+
+<div class="app-container">
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="sidebar-logo">
+
+            <div class="brand-logo small">
+                SP
+            </div>
+
+            <div>
+                <h2>StudyPlanner</h2>
+                <span>Student Dashboard</span>
+            </div>
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+
+            <button class="nav-btn active"
+                    data-page="dashboard">
+
+                <span>⌂</span>
+                Dashboard
+
+            </button>
+
+
+            <button class="nav-btn"
+                    data-page="subjects">
+
+                <span>▣</span>
+                Subjects
+
+            </button>
+
+
+            <button class="nav-btn"
+                    data-page="tasks">
+
+                <span>✓</span>
+                Tasks
+
+            </button>
+
+
+            <button class="nav-btn"
+                    data-page="schedule">
+
+                <span>◷</span>
+                Schedule
+
+            </button>
+
+
+            <button class="nav-btn"
+                    data-page="progress">
+
+                <span>◔</span>
+                Progress
+
+            </button>
+
+
+            <button class="nav-btn"
+                    data-page="settings">
+
+                <span>⚙</span>
+                Settings
+
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button class="logout-btn" id="logoutBtn">
+                <span>↪</span>
+                Logout
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main-content">
+
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div>
+
+                <h1 id="pageTitle">
+                    Dashboard
+                </h1>
+
+                <p id="pageSubtitle">
+                    Here's your study overview.
+                </p>
+
+            </div>
+
+
+            <div class="header-right">
+
+                <div class="today-date"
+                     id="todayDate">
+                </div>
+
+
+                <div class="profile">
+
+                    <div class="profile-avatar"
+                         id="profileAvatar">
+                        U
+                    </div>
+
+                    <div>
+
+                        <strong id="profileName">
+                            User
+                        </strong>
+
+                        <span id="profileEmail">
+                            user@email.com
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- ================================================= -->
+        <!-- DASHBOARD PAGE -->
+        <!-- ================================================= -->
+
+        <section class="page-section active"
+                 id="dashboardPage">
+
+
+            <div class="stats-grid">
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon purple">
+                        📚
+                    </div>
+
+                    <div>
+                        <span>Subjects</span>
+                        <strong id="subjectCount">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon green">
+                        ✓
+                    </div>
+
+                    <div>
+                        <span>Completed</span>
+                        <strong id="completedCount">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon orange">
+                        ○
+                    </div>
+
+                    <div>
+                        <span>Pending</span>
+                        <strong id="pendingCount">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <div class="stat-card">
+
+                    <div class="stat-icon blue">
+                        ◔
+                    </div>
+
+                    <div>
+                        <span>Progress</span>
+                        <strong id="progressValue">
+                            0%
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- WELCOME -->
+
+            <div class="welcome-card">
+
+                <div>
+
+                    <span class="welcome-label">
+                        STUDY PLANNER
+                    </span>
+
+                    <h2>
+                        Welcome,
+                        <span id="welcomeName">
+                            Student
+                        </span>!
+                    </h2>
+
+                    <p>
+                        Organize your subjects, manage your tasks,
+                        plan study sessions and track your progress.
+                    </p>
+
+                    <button class="primary-btn small-btn"
+                            onclick="openPage('subjects')">
+
+                        Get Started
+
+                    </button>
+
+                </div>
+
+                <div class="welcome-icon">
+                    📖
+                </div>
+
+            </div>
+
+
+            <div class="two-column">
+
+
+                <!-- RECENT TASKS -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h3>Recent Tasks</h3>
+                            <p>Your upcoming study tasks</p>
+                        </div>
+
+                        <button class="text-btn"
+                                onclick="openPage('tasks')">
+
+                            View All
+
+                        </button>
+
+                    </div>
+
+                    <div id="dashboardTasks"
+                         class="panel-content">
+                    </div>
+
+                </div>
+
+
+                <!-- SCHEDULE -->
+
+                <div class="panel">
+
+                    <div class="panel-header">
+
+                        <div>
+                            <h3>Upcoming Schedule</h3>
+                            <p>Your planned study sessions</p>
+                        </div>
+
+                        <button class="text-btn"
+                                onclick="openPage('schedule')">
+
+                            View All
+
+                        </button>
+
+                    </div>
+
+                    <div id="dashboardSchedule"
+                         class="panel-content">
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- SUBJECTS -->
+        <!-- ================================================= -->
+
+        <section class="page-section"
+                 id="subjectsPage">
+
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>My Subjects</h2>
+                    <p>Manage the subjects you are studying.</p>
+                </div>
+
+                <button class="primary-btn"
+                        onclick="openSubjectModal()">
+
+                    + Add Subject
+
+                </button>
+
+            </div>
+
+
+            <div id="subjectsList"
+                 class="subjects-grid">
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- TASKS -->
+        <!-- ================================================= -->
+
+        <section class="page-section"
+                 id="tasksPage">
+
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>My Tasks</h2>
+                    <p>Create and manage your study tasks.</p>
+                </div>
+
+                <button class="primary-btn"
+                        onclick="openTaskModal()">
+
+                    + Add Task
+
+                </button>
+
+            </div>
+
+
+            <div id="tasksList"
+                 class="tasks-list">
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- SCHEDULE -->
+        <!-- ================================================= -->
+
+        <section class="page-section"
+                 id="schedulePage">
+
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Study Schedule</h2>
+                    <p>Plan your study sessions.</p>
+                </div>
+
+                <button class="primary-btn"
+                        onclick="openScheduleModal()">
+
+                    + Add Session
+
+                </button>
+
+            </div>
+
+
+            <div id="scheduleList"
+                 class="schedule-list">
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- PROGRESS -->
+        <!-- ================================================= -->
+
+        <section class="page-section"
+                 id="progressPage">
+
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>My Progress</h2>
+                    <p>Track how much of your work is completed.</p>
+                </div>
+
+            </div>
+
+
+            <div class="progress-container">
+
+
+                <div class="progress-circle-wrapper">
+
+                    <div class="progress-circle"
+                         id="progressCircle">
+
+                        <div>
+
+                            <strong id="largeProgress">
+                                0%
+                            </strong>
+
+                            <span>Completed</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-details">
+
+                    <div class="progress-detail-card">
+
+                        <span>Total Tasks</span>
+
+                        <strong id="progressTotal">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progress-detail-card">
+
+                        <span>Completed</span>
+
+                        <strong id="progressCompleted">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="progress-detail-card">
+
+                        <span>Pending</span>
+
+                        <strong id="progressPending">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================================================= -->
+        <!-- SETTINGS -->
+        <!-- ================================================= -->
+
+        <section class="page-section"
+                 id="settingsPage">
+
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Settings</h2>
+                    <p>Update your profile information.</p>
+                </div>
+
+            </div>
+
+
+            <div class="settings-card">
+
+                <form id="settingsForm">
+
+                    <div class="form-group">
+
+                        <label for="settingsName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="settingsName"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="settingsEmail">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="settingsEmail"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button type="submit"
+                            class="primary-btn">
+
+                        Save Changes
+
+                    </button>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- SUBJECT MODAL -->
+<!-- ===================================================== -->
+
+<div class="modal-overlay"
+     id="subjectModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Add Subject</h2>
+                <p>Create a new subject.</p>
+            </div>
+
+            <button class="close-btn"
+                    onclick="closeModal('subjectModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="subjectForm">
+
+            <div class="form-group">
+
+                <label>
+                    Subject Name
+                </label>
+
+                <input
+                    type="text"
+                    id="subjectName"
+                    placeholder="Example: Cloud Computing"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Description
+                </label>
+
+                <textarea
+                    id="subjectDescription"
+                    placeholder="Short description"
+                    rows="3"
+                ></textarea>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        class="secondary-btn"
+                        onclick="closeModal('subjectModal')">
+
+                    Cancel
+
+                </button>
+
+                <button type="submit"
+                        class="primary-btn">
+
+                    Add Subject
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- TASK MODAL -->
+<!-- ===================================================== -->
+
+<div class="modal-overlay"
+     id="taskModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Add Task</h2>
+                <p>Create a new study task.</p>
+            </div>
+
+            <button class="close-btn"
+                    onclick="closeModal('taskModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="taskForm">
+
+            <div class="form-group">
+
+                <label>
+                    Task Name
+                </label>
+
+                <input
+                    type="text"
+                    id="taskName"
+                    placeholder="Example: Complete AWS notes"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Subject
+                </label>
+
+                <select id="taskSubject">
+
+                    <option value="">
+                        No Subject
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Notes
+                </label>
+
+                <textarea
+                    id="taskDescription"
+                    placeholder="Add task notes..."
+                    rows="3"
+                ></textarea>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>
+                        Due Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="taskDate"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="taskTime"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        class="secondary-btn"
+                        onclick="closeModal('taskModal')">
+
+                    Cancel
+
+                </button>
+
+                <button type="submit"
+                        class="primary-btn">
+
+                    Add Task
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ===================================================== -->
+<!-- SCHEDULE MODAL -->
+<!-- ===================================================== -->
+
+<div class="modal-overlay"
+     id="scheduleModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Add Study Session</h2>
+                <p>Plan your study time.</p>
+            </div>
+
+            <button class="close-btn"
+                    onclick="closeModal('scheduleModal')">
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="scheduleForm">
+
+            <div class="form-group">
+
+                <label>
+                    Subject
+                </label>
+
+                <select id="scheduleSubject">
+
+                    <option value="">
+                        General Study
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>
+                    Date
+                </label>
+
+                <input
+                    type="date"
+                    id="scheduleDate"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>
+                        Start Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="scheduleStart"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        End Time
+                    </label>
+
+                    <input
+                        type="time"
+                        id="scheduleEnd"
+                        required
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="modal-actions">
+
+                <button type="button"
+                        class="secondary-btn"
+                        onclick="closeModal('scheduleModal')">
+
+                    Cancel
+
+                </button>
+
+                <button type="submit"
+                        class="primary-btn">
+
+                    Add Session
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<div id="toast"
+     class="toast">
+</div>
+
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
